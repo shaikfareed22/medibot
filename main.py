@@ -2,6 +2,9 @@ from flask import Flask, request, render_template, jsonify  # Import jsonify
 import numpy as np
 import pandas as pd
 import pickle
+ import os
+import gdown
+
 
 
 # flask app
@@ -117,4 +120,11 @@ def blog():
 
 if __name__ == '__main__':
     from os import environ
+
     app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
+   
+# Check if the file already exists to avoid re-downloading
+if not os.path.exists("model.pkl"):  # Change "model.pkl" to your actual filename
+    url = "https://drive.google.com/uc?id=1ABCDEF1234567890"  # Replace with your File ID
+    output = "model.pkl"  # Output file name
+    gdown.download(url, output, quiet=False)
